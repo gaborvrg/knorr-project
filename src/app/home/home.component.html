@@ -1,12 +1,12 @@
-<h2>
+<p>
   Home Component! (temporary title)
-</h2>
+</p>
 
 <div class="menu-container">
 
   <div class="hex-wrapper">
     <div class="hex-row shift">
-      <div class="hexagon" id="nav-video1">
+      <div class="hexagon" id="nav-video1" [routerLink]="[ '/video' ]">
         Video1
         <div class="face1"></div>
         <div class="face2"></div>
@@ -23,25 +23,25 @@
         <div class="face1"></div>
         <div class="face2"></div>
       </div>
-      <div class="hexagon" id="nav-home">
+      <div class="hexagon" id="nav-home" [routerLink]="[ '/' ]">
         Home
         <div class="face1"></div>
         <div class="face2"></div>
       </div>
-      <div class="hexagon" id="nav-video5">
-        Video 5
+      <div class="hexagon" id="nav-video4">
+        Video 4
         <div class="face1"></div>
         <div class="face2"></div>
       </div>
     </div>
     <div class="hex-row shift">
-      <div class="hexagon" id="nav-video6">
-        Video 6
+      <div class="hexagon" id="nav-video5">
+        Video 5
         <div class="face1"></div>
         <div class="face2"></div>
       </div>
-      <div class="hexagon" id="nav-video7">
-        Video 7
+      <div class="hexagon" id="nav-video6" [routerLink]="[ '/external' ]">
+        External webpage
         <div class="face1"></div>
         <div class="face2"></div>
       </div>
