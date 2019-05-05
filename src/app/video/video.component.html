@@ -1,3 +1,6 @@
-<p>
-  video works!
-</p>
+<div class="menu-container">
+  <video class="video" controls (click)="toggleVideo()" #videoPlayer>
+    <source src="{{videoSource}}" type="video/mp4" />
+  </video>
+</div>
+

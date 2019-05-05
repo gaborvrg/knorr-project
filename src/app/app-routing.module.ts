@@ -6,7 +6,7 @@ import { ExternalWebpageComponent } from './external-webpage/external-webpage.co
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'video', component: VideoComponent },
+  { path: 'video/:id', component: VideoComponent },
   { path: 'external', component: ExternalWebpageComponent }
 ];
 
