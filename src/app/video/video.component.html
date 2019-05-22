@@ -1,5 +1,11 @@
 <div class="menu-container">
-  <video class="video" controls (click)="toggleVideo()" #videoPlayer>
+  <video 
+    class="video"
+    autoplay
+    (click)="toggleVideo()"
+    (ended)="videoEnded()" 
+    #videoPlayer
+    >
     <source src="{{videoSource}}" type="video/mp4" />
   </video>
 </div>
