@@ -1,12 +1,14 @@
-<div class="menu-container">
-  <video 
-    class="video"
-    autoplay
-    (click)="toggleVideo()"
-    (ended)="videoEnded()" 
-    #videoPlayer
+<div class="menu-container wrapper">
+    <video 
+	    class="video"
+	    autoplay
+	    (click)="toggleVideo()"
+	    src="{{videoSource}}" 
+	    type="video/mp4"
+	    #videoPlayer
     >
-    <source src="{{videoSource}}" type="video/mp4" />
-  </video>
+    </video>
+    <div class="side-nav-left" (click)="navToPreviousPage()"></div>
+    <div class="home-button" (click)="navToHome()">HOME</div>
+	<div class="side-nav-right" (click)="navToNextPage()"></div>
 </div>
-

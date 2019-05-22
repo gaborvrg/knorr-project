@@ -8,49 +8,49 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class VideoComponent implements OnInit {
 
-  videoId: string;
+  videoId: number;
   videoSource: string;
   @ViewChild('videoPlayer') videoplayer: ElementRef;
-
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute,
+              private router: Router) {}
 
   ngOnInit() {
-    this.videoId = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('id');
+    this.videoId = +id;
     this.loadVideoById();
   }
 
-  private loadVideoById() {
+  private loadVideoById(id? : number) {
+    if (id) {
+      this.videoId = id; 
+    }
     switch (this.videoId) {
-      case '1': {
+      case 1: {
         this.videoSource = '../assets/videos/test1.mp4';
         this.openFullScreen();
         break;
       }
-      case '2': {
+      case 2: {
         this.videoSource = '../assets/videos/test2.mp4';
         this.openFullScreen();
         break;
       }
-      case '3': {
+      case 3: {
         this.videoSource = '../assets/videos/test3.mp4';
         this.openFullScreen();
         break;
       }
-      case '4': {
+      case 4: {
         this.videoSource = '../assets/videos/test4.mp4';
         this.openFullScreen();
         break;
       }
-      case '5': {
+      case 5: {
         this.videoSource = '../assets/videos/test5.mp4';
         this.openFullScreen();
         break;
       }
     }
-  }
-
-  private videoEnded() {
-    this.router.navigate(['/']);
   }
 
   private openFullScreen() {
@@ -71,9 +71,33 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  private toggleVideo(event: any) {
+  private toggleVideo(event: any) : void{
     let video: HTMLVideoElement;
     video = this.videoplayer.nativeElement;
     video.paused ? video.play() : video.pause();
+  }
+
+  private navToPreviousPage() : void {
+    let tempId = this.videoId - 1;
+    if (tempId!=0) {
+      this.router.navigate(['/video', (tempId)]);
+      this.loadVideoById(tempId);
+    } else {
+      this.router.navigateByUrl('/');
+    }
+  }
+
+  private navToHome() : void {
+    this.router.navigateByUrl('/');
+  }
+
+  private navToNextPage() : void {
+    if (this.videoId<4) {
+      let tempId = this.videoId + 1;
+      this.router.navigate(['/video', (tempId)]);
+      this.loadVideoById(tempId);
+    } else {
+      this.router.navigateByUrl('/');
+    }
   }
 }

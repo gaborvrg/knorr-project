@@ -1,6 +1,33 @@
 .video {
-  text-align: center;
-  margin: 0 auto;
-  display: block;
-  overflow: hidden;
+	text-align: center;
+	margin: 0 auto;
+	display: block;
+	overflow: hidden;
+	width: 100%;
+}
+.wrapper {
+	position: relative;
+}
+.side-nav-left {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 20%;
+	height: 50%;
+	opacity: 0;
+}
+.side-nav-right {
+	position: absolute;
+	right: 0;
+	width: 20%;
+	height: 40%;
+	opacity: 0;
+}
+.home-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 20%;
+	height: 20%;
+	opacity: 0;
 }
