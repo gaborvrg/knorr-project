@@ -15,14 +15,14 @@ export class VideoComponent implements OnInit {
               private router: Router) {}
 
   ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.videoId = +id;
     this.loadVideoById();
   }
 
-  private loadVideoById(id? : number) {
+  private loadVideoById(id?: number) {
     if (id) {
-      this.videoId = id; 
+      this.videoId = id;
     }
     switch (this.videoId) {
       case 1: {
@@ -71,15 +71,15 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  private toggleVideo(event: any) : void{
+  private toggleVideo(event: any): void {
     let video: HTMLVideoElement;
     video = this.videoplayer.nativeElement;
     video.paused ? video.play() : video.pause();
   }
 
-  private navToPreviousPage() : void {
-    let tempId = this.videoId - 1;
-    if (tempId!=0) {
+  private navToPreviousPage(): void {
+    const tempId = this.videoId - 1;
+    if (tempId !== 0) {
       this.router.navigate(['/video', (tempId)]);
       this.loadVideoById(tempId);
     } else {
@@ -87,13 +87,13 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  private navToHome() : void {
+  private navToHome(): void {
     this.router.navigateByUrl('/');
   }
 
-  private navToNextPage() : void {
-    if (this.videoId<4) {
-      let tempId = this.videoId + 1;
+  private navToNextPage(): void {
+    if (this.videoId < 4) {
+      const tempId = this.videoId + 1;
       this.router.navigate(['/video', (tempId)]);
       this.loadVideoById(tempId);
     } else {

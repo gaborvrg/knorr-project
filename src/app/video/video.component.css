@@ -14,14 +14,17 @@
 	top: 0;
 	width: 20%;
 	height: 50%;
-	opacity: 0;
+	opacity: 0.1;
+	background-color: red;
 }
 .side-nav-right {
 	position: absolute;
+	bottom: 0;
 	right: 0;
 	width: 20%;
 	height: 40%;
-	opacity: 0;
+	opacity: 0.1;
+	background-color: red;
 }
 .home-button {
 	position: absolute;
@@ -29,5 +32,6 @@
 	right: 0;
 	width: 20%;
 	height: 20%;
-	opacity: 0;
+	opacity: 0.1;
+	background-color: red;
 }
