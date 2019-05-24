@@ -71,13 +71,13 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  private toggleVideo(event: any): void {
+  toggleVideo(event: any): void {
     let video: HTMLVideoElement;
     video = this.videoplayer.nativeElement;
     video.paused ? video.play() : video.pause();
   }
 
-  private navToPreviousPage(): void {
+  navToPreviousPage(): void {
     const tempId = this.videoId - 1;
     if (tempId !== 0) {
       this.router.navigate(['/video', (tempId)]);
@@ -87,11 +87,11 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  private navToHome(): void {
+  navToHome(): void {
     this.router.navigateByUrl('/');
   }
 
-  private navToNextPage(): void {
+  navToNextPage(): void {
     if (this.videoId < 4) {
       const tempId = this.videoId + 1;
       this.router.navigate(['/video', (tempId)]);
