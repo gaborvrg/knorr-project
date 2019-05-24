@@ -1,9 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:700&display=swap');
+@font-face {
+  font-family: myriadProBold;
+  src: url('./assets/fonts/myriad/MyriadPro-Bold.otf')  format('truetype');
+}
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: myriadProBold;
 }
