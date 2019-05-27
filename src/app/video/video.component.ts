@@ -26,27 +26,27 @@ export class VideoComponent implements OnInit {
     }
     switch (this.videoId) {
       case 1: {
-        this.videoSource = './assets/videos/test1.mp4';
+        this.videoSource = './assets/test1.mp4';
         this.openFullScreen();
         break;
       }
       case 2: {
-        this.videoSource = './assets/videos/test2.mp4';
+        this.videoSource = './assets/test2.mp4';
         this.openFullScreen();
         break;
       }
       case 3: {
-        this.videoSource = './assets/videos/test3.mp4';
+        this.videoSource = './assets/test3.mp4';
         this.openFullScreen();
         break;
       }
       case 4: {
-        this.videoSource = './assets/videos/test4.mp4';
+        this.videoSource = './assets/test4.mp4';
         this.openFullScreen();
         break;
       }
       case 5: {
-        this.videoSource = './assets/videos/test5.mp4';
+        this.videoSource = './assets/test5.mp4';
         this.openFullScreen();
         break;
       }
