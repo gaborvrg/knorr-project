@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: myriadProBold;
-  src: url('./assets/fonts/myriad/MyriadPro-Bold.otf')  format('truetype');
+  src: url('./assets/MyriadPro-Bold.otf')  format('truetype');
 }
 
 * {
