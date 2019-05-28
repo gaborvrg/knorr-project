@@ -5,10 +5,12 @@
 	    (click)="toggleVideo($event)"
 	    src="{{videoSource}}" 
 	    type="video/mp4"
-	    #videoPlayer
+	    #videoPlayer 
+	    (ended)="wagonPartsEnd()"
     >
     </video>
     <div class="side-nav-left" (click)="navToPreviousPage()"></div>
     <div class="home-button" (click)="navToHome()"></div>
-	<div class="side-nav-right" (click)="navToNextPage()"></div>
+	<div *ngIf="!isWagon" class="side-nav-right" (click)="navToNextPage()"></div>
+	<div *ngIf="isWagon" class="side-nav-right" (click)="navToNextPart(+wagonPart)"></div>
 </div>

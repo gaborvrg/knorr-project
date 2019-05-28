@@ -10,6 +10,8 @@ export class VideoComponent implements OnInit {
 
   videoId: number;
   videoSource: string;
+  isWagon: boolean;
+  wagonPart: string;
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   constructor(private route: ActivatedRoute,
               private router: Router) {}
@@ -26,30 +28,52 @@ export class VideoComponent implements OnInit {
     }
     switch (this.videoId) {
       case 1: {
+        this.isWagon = false;
         this.videoSource = './assets/test1.mp4';
         this.openFullScreen();
         break;
       }
       case 2: {
-        this.videoSource = './assets/test2.mp4';
-        this.openFullScreen();
+        this.isWagon = true;
+        this.playWagonVideoParts('1');
         break;
       }
       case 3: {
+        this.isWagon = false;
         this.videoSource = './assets/test3.mp4';
         this.openFullScreen();
         break;
       }
       case 4: {
+        this.isWagon = false;
         this.videoSource = './assets/test4.mp4';
         this.openFullScreen();
         break;
       }
       case 5: {
+        this.isWagon = false;
         this.videoSource = './assets/test5.mp4';
         this.openFullScreen();
         break;
       }
+    }
+  }
+
+  playWagonVideoParts(actPart:string) : void {
+    let video: HTMLVideoElement;
+    video = this.videoplayer.nativeElement;
+    this.wagonPart = actPart;
+    this.videoSource = './assets/videos/wagon/Wagon Guard_' + this.wagonPart + '.mp4'; 
+  }
+
+  navToNextPart(wagonPart: number) : void {
+    wagonPart++;
+    this.playWagonVideoParts(wagonPart.toString());
+  }
+
+  wagonPartsEnd() : void {
+    if (this.wagonPart==='5') {
+      this.navToHome();
     }
   }
 
@@ -83,7 +107,7 @@ export class VideoComponent implements OnInit {
       this.router.navigate(['/video', (tempId)]);
       this.loadVideoById(tempId);
     } else {
-      this.router.navigateByUrl('/');
+      this.navToHome();
     }
   }
 
@@ -97,7 +121,7 @@ export class VideoComponent implements OnInit {
       this.router.navigate(['/video', (tempId)]);
       this.loadVideoById(tempId);
     } else {
-      this.router.navigateByUrl('/');
+      this.navToHome();
     }
   }
 }
