@@ -68,12 +68,12 @@ export class VideoComponent implements OnInit {
 
   navToNextPart(wagonPart: number) : void {
     wagonPart++;
-    this.playWagonVideoParts(wagonPart.toString());
-  }
-
-  wagonPartsEnd() : void {
-    if (this.wagonPart==='5') {
-      this.navToHome();
+    if (wagonPart===6) {
+      this.isWagon = false;
+      this.videoId = 3;
+      this.loadVideoById();
+    } else {
+      this.playWagonVideoParts(wagonPart.toString());
     }
   }
 
