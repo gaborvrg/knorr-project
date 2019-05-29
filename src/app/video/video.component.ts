@@ -36,6 +36,7 @@ export class VideoComponent implements OnInit {
       case 2: {
         this.isWagon = true;
         this.playWagonVideoParts('1');
+        this.openFullScreen();
         break;
       }
       case 3: {
@@ -64,6 +65,18 @@ export class VideoComponent implements OnInit {
     video = this.videoplayer.nativeElement;
     this.wagonPart = actPart;
     this.videoSource = './assets/Wagon Guard_' + this.wagonPart + '.mp4';
+  }
+
+  navToPreviousPart(wagonPart: number): void {
+    wagonPart--;
+    if (wagonPart === 1) {
+      this.isWagon = false;
+      this.videoId = 1;
+      this.loadVideoById();
+    } else {
+      this.playWagonVideoParts(wagonPart.toString());
+    }
+    this.playWagonVideoParts(wagonPart.toString());
   }
 
   navToNextPart(wagonPart: number): void {

@@ -7,7 +7,8 @@
 	    #videoPlayer 
     >
     </video>
-    <div class="side-nav-left" (click)="navToPreviousPage()"></div>
+    <div *ngIf="!isWagon" class="side-nav-left" (click)="navToPreviousPage()"></div>
+    <div *ngIf="isWagon" class="side-nav-left" (click)="navToPreviousPart(wagonPart)"></div>
     <div class="home-button" (click)="navToHome()"></div>
 	<div *ngIf="!isWagon" class="side-nav-right" (click)="navToNextPage()"></div>
 	<div *ngIf="isWagon" class="side-nav-right" (click)="navToNextPart(wagonPart)"></div>
