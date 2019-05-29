@@ -10,8 +10,9 @@ export class VideoComponent implements OnInit {
 
   videoId: number;
   videoSource: string;
-  isWagon: boolean;
-  wagonPart: string;
+  videoPart: string;
+  videoName: string;
+  nrOfVideoParts: number;
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   constructor(private route: ActivatedRoute,
               private router: Router) {}
@@ -22,72 +23,67 @@ export class VideoComponent implements OnInit {
     this.loadVideoById();
   }
 
-  private loadVideoById(id?: number) {
-    if (id) {
-      this.videoId = id;
-    }
+  private loadVideoById() {
     switch (this.videoId) {
       case 1: {
-        this.isWagon = false;
-        this.videoSource = './assets/test1.mp4';
+        this.videoName = "Overview";
+        this.nrOfVideoParts = 3;
+        this.playVideoParts(this.videoName, "1");
         this.openFullScreen();
         break;
       }
       case 2: {
-        this.isWagon = true;
-        this.playWagonVideoParts('1');
+        this.videoName = "Wagon Guard";
+        this.nrOfVideoParts = 5;
+        this.playVideoParts(this.videoName, "1");
         this.openFullScreen();
         break;
       }
       case 3: {
-        this.isWagon = false;
-        this.videoSource = './assets/test3.mp4';
+        this.videoName = "CBM";
+        this.nrOfVideoParts = 5;
+        this.playVideoParts(this.videoName, "1");
         this.openFullScreen();
         break;
       }
       case 4: {
-        this.isWagon = false;
-        this.videoSource = './assets/test4.mp4';
-        this.openFullScreen();
-        break;
-      }
-      case 5: {
-        this.isWagon = false;
-        this.videoSource = './assets/test5.mp4';
+        this.videoName = "Automation";
+        this.nrOfVideoParts = 5;
+        this.playVideoParts(this.videoName, "1");
         this.openFullScreen();
         break;
       }
     }
   }
 
-  playWagonVideoParts(actPart: string): void {
-    let video: HTMLVideoElement;
-    video = this.videoplayer.nativeElement;
-    this.wagonPart = actPart;
-    this.videoSource = './assets/Wagon Guard_' + this.wagonPart + '.mp4';
+  playVideoParts(type: string, actPart: string): void {
+    this.videoPart = actPart;
+    this.videoSource = './assets/' + type + '_' + this.videoPart + '.mp4';
   }
 
-  navToPreviousPart(wagonPart: number): void {
-    wagonPart--;
-    if (wagonPart === 1) {
-      this.isWagon = false;
-      this.videoId = 1;
+  navToPreviousPart(videoPart: number): void {
+    videoPart--;
+    if (videoPart === 1) {
+      this.videoId--;
       this.loadVideoById();
     } else {
-      this.playWagonVideoParts(wagonPart.toString());
+      this.playVideoParts(this.videoName, videoPart.toString());
     }
-    this.playWagonVideoParts(wagonPart.toString());
+    this.playVideoParts(this.videoName, videoPart.toString());
   }
 
-  navToNextPart(wagonPart: number): void {
-    wagonPart++;
-    if (wagonPart === 6) {
-      this.isWagon = false;
-      this.videoId = 3;
+  navToNextPart(videoPart: number): void {
+    videoPart++;
+    if (videoPart > this.nrOfVideoParts) {
+      this.videoId++;
       this.loadVideoById();
     } else {
-      this.playWagonVideoParts(wagonPart.toString());
+      this.playVideoParts(this.videoName, videoPart.toString());
     }
+  }
+
+  navToHome(): void {
+    this.router.navigateByUrl('/');
   }
 
   private openFullScreen() {
@@ -114,27 +110,4 @@ export class VideoComponent implements OnInit {
   //   video.paused ? video.play() : video.pause();
   // }
 
-  navToPreviousPage(): void {
-    const tempId = this.videoId - 1;
-    if (tempId !== 0) {
-      this.router.navigate(['/video', (tempId)]);
-      this.loadVideoById(tempId);
-    } else {
-      this.navToHome();
-    }
-  }
-
-  navToHome(): void {
-    this.router.navigateByUrl('/');
-  }
-
-  navToNextPage(): void {
-    if (this.videoId < 4) {
-      const tempId = this.videoId + 1;
-      this.router.navigate(['/video', (tempId)]);
-      this.loadVideoById(tempId);
-    } else {
-      this.navToHome();
-    }
-  }
 }
