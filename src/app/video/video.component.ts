@@ -26,35 +26,35 @@ export class VideoComponent implements OnInit {
   private loadVideoById() {
     switch (this.videoId) {
       case 1: {
-        this.videoName = "Overview";
+        this.videoName = 'Overview';
         this.nrOfVideoParts = 3;
-        this.playVideoParts(this.videoName, "1");
+        this.playVideoParts(this.videoName, '1');
         this.openFullScreen();
         break;
       }
       case 2: {
-        this.videoName = "Wagon Guard";
+        this.videoName = 'Wagon Guard';
         this.nrOfVideoParts = 5;
-        this.playVideoParts(this.videoName, "1");
+        this.playVideoParts(this.videoName, '1');
         this.openFullScreen();
         break;
       }
       case 3: {
-        this.videoName = "CBM";
+        this.videoName = 'CBM';
         this.nrOfVideoParts = 5;
-        this.playVideoParts(this.videoName, "1");
+        this.playVideoParts(this.videoName, '1');
         this.openFullScreen();
         break;
       }
       case 4: {
-        this.videoName = "Automation";
+        this.videoName = 'Automation';
         this.nrOfVideoParts = 5;
-        this.playVideoParts(this.videoName, "1");
+        this.playVideoParts(this.videoName, '1');
         this.openFullScreen();
         break;
       }
       default: {
-        this.navToHome();  
+        this.navToHome();
       }
     }
   }
@@ -64,7 +64,7 @@ export class VideoComponent implements OnInit {
     this.videoSource = './assets/' + type + '_' + this.videoPart + '.mp4';
   }
 
-  navToPreviousPart(videoPart: number): void {
+  navToPreviousPart(videoPart: any): void {
     videoPart--;
     if (videoPart < 1) {
       this.videoId--;
@@ -74,7 +74,7 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  navToNextPart(videoPart: number): void {
+  navToNextPart(videoPart: any): void {
     videoPart++;
     if (videoPart > this.nrOfVideoParts) {
       this.videoId++;
@@ -105,11 +105,4 @@ export class VideoComponent implements OnInit {
       elem.msRequestFullscreen();
     }
   }
-
-  // toggleVideo(event: any): void {
-  //   let video: HTMLVideoElement;
-  //   video = this.videoplayer.nativeElement;
-  //   video.paused ? video.play() : video.pause();
-  // }
-
 }
