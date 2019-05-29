@@ -59,16 +59,16 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  playWagonVideoParts(actPart:string) : void {
+  playWagonVideoParts(actPart: string): void {
     let video: HTMLVideoElement;
     video = this.videoplayer.nativeElement;
     this.wagonPart = actPart;
-    this.videoSource = './assets/videos/wagon/Wagon Guard_' + this.wagonPart + '.mp4'; 
+    this.videoSource = './assets/Wagon Guard_' + this.wagonPart + '.mp4';
   }
 
-  navToNextPart(wagonPart: number) : void {
+  navToNextPart(wagonPart: number): void {
     wagonPart++;
-    if (wagonPart===6) {
+    if (wagonPart === 6) {
       this.isWagon = false;
       this.videoId = 3;
       this.loadVideoById();
@@ -95,11 +95,11 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  toggleVideo(event: any): void {
-    let video: HTMLVideoElement;
-    video = this.videoplayer.nativeElement;
-    video.paused ? video.play() : video.pause();
-  }
+  // toggleVideo(event: any): void {
+  //   let video: HTMLVideoElement;
+  //   video = this.videoplayer.nativeElement;
+  //   video.paused ? video.play() : video.pause();
+  // }
 
   navToPreviousPage(): void {
     const tempId = this.videoId - 1;
