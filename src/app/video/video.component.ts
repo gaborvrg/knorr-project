@@ -53,6 +53,9 @@ export class VideoComponent implements OnInit {
         this.openFullScreen();
         break;
       }
+      default: {
+        this.navToHome();  
+      }
     }
   }
 
@@ -63,13 +66,12 @@ export class VideoComponent implements OnInit {
 
   navToPreviousPart(videoPart: number): void {
     videoPart--;
-    if (videoPart === 1) {
+    if (videoPart < 1) {
       this.videoId--;
       this.loadVideoById();
     } else {
       this.playVideoParts(this.videoName, videoPart.toString());
     }
-    this.playVideoParts(this.videoName, videoPart.toString());
   }
 
   navToNextPart(videoPart: number): void {
