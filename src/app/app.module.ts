@@ -5,14 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { VideoComponent } from './video/video.component';
-import { ExternalWebpageComponent } from './external-webpage/external-webpage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    VideoComponent,
-    ExternalWebpageComponent
+    VideoComponent
   ],
   imports: [
     BrowserModule,
