@@ -1,9 +1,11 @@
 <div class="menu-container wrapper">
     <video 
-	    class="video"
+		class="video"
+		(ended)="onVideoEnded()"
+		preload="auto"
 	    autoplay
-	    src="{{videoSource}}" 
-	    type="video/mp4"
+	    src="{{ videoSource }}" 
+		type="video/mp4"
 	    #videoPlayer 
     >
     </video>

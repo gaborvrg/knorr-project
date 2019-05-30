@@ -10,9 +10,10 @@ export class VideoComponent implements OnInit {
 
   videoId: number;
   videoSource: string;
-  videoPart: string;
+  videoPart: number;
   videoName: string;
   nrOfVideoParts: number;
+  posterImage;
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   constructor(private route: ActivatedRoute,
               private router: Router) {}
@@ -28,28 +29,28 @@ export class VideoComponent implements OnInit {
       case 1: {
         this.videoName = 'Overview';
         this.nrOfVideoParts = 3;
-        this.playVideoParts(this.videoName, '1');
+        this.playVideoParts(this.videoName, 1);
         this.openFullScreen();
         break;
       }
       case 2: {
         this.videoName = 'Wagon Guard';
         this.nrOfVideoParts = 5;
-        this.playVideoParts(this.videoName, '1');
+        this.playVideoParts(this.videoName, 1);
         this.openFullScreen();
         break;
       }
       case 3: {
         this.videoName = 'CBM';
         this.nrOfVideoParts = 5;
-        this.playVideoParts(this.videoName, '1');
+        this.playVideoParts(this.videoName, 1);
         this.openFullScreen();
         break;
       }
       case 4: {
         this.videoName = 'Automation';
         this.nrOfVideoParts = 5;
-        this.playVideoParts(this.videoName, '1');
+        this.playVideoParts(this.videoName, 1);
         this.openFullScreen();
         break;
       }
@@ -59,7 +60,7 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  playVideoParts(type: string, actPart: string): void {
+  playVideoParts(type: string, actPart: number): void {
     this.videoPart = actPart;
     this.videoSource = './assets/' + type + '_' + this.videoPart + '.mp4';
   }
@@ -79,8 +80,15 @@ export class VideoComponent implements OnInit {
     if (videoPart > this.nrOfVideoParts) {
       this.videoId++;
       this.loadVideoById();
+      // this.navToHome();
     } else {
       this.playVideoParts(this.videoName, videoPart.toString());
+    }
+  }
+
+  onVideoEnded() {
+    if (this.videoPart >= this.nrOfVideoParts) {
+      this.navToHome();
     }
   }
 
