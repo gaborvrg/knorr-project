@@ -3,6 +3,7 @@
 	margin: 0 auto;
 	display: block;
 	overflow: hidden;
+	height: auto;
 	width: 100%;
 }
 .wrapper {
@@ -29,3 +30,11 @@
 	width: 15%;
 	height: 25%;
 }
+/***nav-icons***/
+svg {
+	display: block;
+    margin: auto;
+    margin-top: 20%;
+}
+.st0{fill:#FFFFFF;}
+.st1{fill:#1A457F;}
