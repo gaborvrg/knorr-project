@@ -51,43 +51,22 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  // playVideoParts(type: string, actPart: number): void {
-  //   this.videoPart = actPart;
-  //   this.videoSource = './assets/' + type + '_' + this.videoPart + '.mp4';
-  // }
-
-  // navToPreviousPart(videoPart: any): void {
-  //   videoPart--;
-  //   if (videoPart < 1) {
-  //     this.videoId--;
-  //     this.loadVideoById();
-  //   } else {
-  //     this.playVideoParts(this.videoName, videoPart.toString());
-  //   }
-  // }
-
-  // navToNextPart(videoPart: any): void {
-  //   videoPart++;
-  //   if (videoPart > this.nrOfVideoParts) {
-  //     this.videoId++;
-  //     this.loadVideoById();
-  //     // this.navToHome();
-  //   } else {
-  //     this.playVideoParts(this.videoName, videoPart.toString());
-  //   }
-  // }
 
   onVideoEnded() {
-      this.navToHome();
+    this.navToHome();
   }
 
   navToHome(): void {
     this.router.navigateByUrl('/');
   }
 
+  onTimeUpdate(value) {
+    console.log(value.target.currentTime);
+  }
+
   // toggleVideo(event: any): void {
-  //   let video: HTMLVideoElement;
-  //   video = this.videoplayer.nativeElement;
+    //   let video: HTMLVideoElement;
+    //   video = this.videoplayer.nativeElement;
   //   video.paused ? video.play() : video.pause();
   // }
 
@@ -129,3 +108,29 @@ export class VideoComponent implements OnInit {
     }
   }
 }
+
+// playVideoParts(type: string, actPart: number): void {
+//   this.videoPart = actPart;
+//   this.videoSource = './assets/' + type + '_' + this.videoPart + '.mp4';
+// }
+
+// navToPreviousPart(videoPart: any): void {
+//   videoPart--;
+//   if (videoPart < 1) {
+//     this.videoId--;
+//     this.loadVideoById();
+//   } else {
+//     this.playVideoParts(this.videoName, videoPart.toString());
+//   }
+// }
+
+// navToNextPart(videoPart: any): void {
+//   videoPart++;
+//   if (videoPart > this.nrOfVideoParts) {
+//     this.videoId++;
+//     this.loadVideoById();
+//     // this.navToHome();
+//   } else {
+//     this.playVideoParts(this.videoName, videoPart.toString());
+//   }
+// }

@@ -2,6 +2,7 @@
     <video 
 		class="video"
 		(ended)="onVideoEnded()"
+		(timeupdate)="onTimeUpdate($event)"
 		preload="auto"
 	    autoplay
 	    src="{{ videoSource }}" 
