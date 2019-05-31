@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -6,50 +6,56 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './video.component.html',
   styleUrls: ['../home/home.component.css', './video.component.css']
 })
-export class VideoComponent implements OnInit {
+export class VideoComponent implements OnInit, AfterViewInit {
+
   videoId: number;
   videoSource: string;
-  currentTime: number;
-  stopIndex = 0;
-  video: HTMLVideoElement;
-  overViewTimeStops = [2.43835, 30.566];
-  wagonGuardTimeStops = [3.033, 10.0, 20.159, 22.744];
-  cbmTimeStops = [1.15, 6.339, 28.810, 68.255];
-  automationTimeStops = [3.067, 27.317, 30.175, 41.608];
+  videoPart: number;
+  videoName: string;
+  nrOfVideoParts: number;
+  videoPlayer: HTMLVideoElement;
 
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   constructor(private route: ActivatedRoute,
               private router: Router) {}
 
   ngOnInit() {
-    this.video = this.videoplayer.nativeElement;
     const id = this.route.snapshot.paramMap.get('id');
     this.videoId = +id;
     this.loadVideoById();
   }
 
-  private loadVideoById(id?: number) {
-    if (id) {
-      this.videoId = id;
-    }
+  ngAfterViewInit() {
+    this.videoPlayer = this.videoplayer.nativeElement;
+  }
+
+  private loadVideoById() {
     switch (this.videoId) {
       case 1: {
-        this.videoSource = './assets/Overview.mp4';
+        this.videoName = 'Overview';
+        this.nrOfVideoParts = 3;
+        this.playVideoParts(this.videoName, 1);
         this.openFullScreen();
         break;
       }
       case 2: {
-        this.videoSource = './assets/Wagon Guard.mp4';
+        this.videoName = 'Wagon Guard';
+        this.nrOfVideoParts = 5;
+        this.playVideoParts(this.videoName, 1);
         this.openFullScreen();
         break;
       }
       case 3: {
-        this.videoSource = './assets/CBM.mp4';
+        this.videoName = 'CBM';
+        this.nrOfVideoParts = 5;
+        this.playVideoParts(this.videoName, 1);
         this.openFullScreen();
         break;
       }
       case 4: {
-        this.videoSource = './assets/Automation.mp4';
+        this.videoName = 'Automation';
+        this.nrOfVideoParts = 5;
+        this.playVideoParts(this.videoName, 1);
         this.openFullScreen();
         break;
       }
@@ -59,86 +65,48 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  onTimeUpdate(value: any): void {
-    this.currentTime = value.target.currentTime;
-    console.log(this.currentTime);
-    switch (this.videoId) {
-      case 1: {
-        if (this.currentTime >= this.overViewTimeStops[this.stopIndex]) {
-          this.video.pause();
-          this.stopIndex++;
-        }
-        break;
-      }
-      case 2: {
-        if (this.currentTime >= this.wagonGuardTimeStops[this.stopIndex]) {
-          this.video.pause();
-          this.stopIndex++;
-        }
-        break;
-      }
-      case 3: {
-        if (this.currentTime >= this.cbmTimeStops[this.stopIndex]) {
-          this.video.pause();
-          this.stopIndex++;
-        }
-        break;
-      }
-      case 4: {
-        if (this.currentTime >= this.automationTimeStops[this.stopIndex]) {
-          this.video.pause();
-          this.stopIndex++;
-        }
-        break;
-      }
+  playVideoParts(type: string, actPart: number): void {
+    this.videoPart = actPart;
+    this.videoSource = './assets/' + type + '_' + this.videoPart + '.mp4';
+  }
+
+  navToPreviousPart(videoPart: any): void {
+    videoPart--;
+    if (videoPart < 1) {
+      this.navToHome();
+    } else {
+      this.playVideoParts(this.videoName, videoPart.toString());
+    }
+  }
+
+  navToNextPart(videoPart: any): void {
+    videoPart++;
+    if (videoPart > this.nrOfVideoParts) {
+      this.videoId++;
+      this.loadVideoById();
+      // this.navToHome();
+    } else {
+      this.playVideoParts(this.videoName, videoPart.toString());
     }
   }
 
   onVideoEnded() {
-    this.navToHome();
+    if (this.videoPart >= this.nrOfVideoParts) {
+      this.navToHome();
+    }
   }
 
   navToHome(): void {
     this.router.navigateByUrl('/');
   }
 
-  navToPreviousPage(): void {
-    const tempId = this.videoId - 1;
-    if ((!this.video.ended) && (this.overViewTimeStops.length >= this.stopIndex) ||
-      (!this.video.ended) && (this.wagonGuardTimeStops.length >= this.stopIndex) ||
-      (!this.video.ended) && (this.cbmTimeStops.length >= this.stopIndex) ||
-      (!this.video.ended) && (this.automationTimeStops.length >= this.stopIndex)) {
-      this.video.currentTime = 0;
-      this.video.play();
-    } else if (tempId !== 0) {
-      this.stopIndex = 0;
-      this.router.navigate(['/video', (tempId)]);
-      this.loadVideoById(tempId);
-    } else {
-      this.stopIndex = 0;
-      this.router.navigateByUrl('/');
+  toggleVideo(event: any): void {
+    if (!this.videoPlayer.ended) {
+      this.videoPlayer.paused ? this.videoPlayer.play() : this.videoPlayer.pause();
     }
   }
 
-  navToNextPage(): void {
-    if ((!this.video.ended) && (this.overViewTimeStops.length >= this.stopIndex) ||
-        (!this.video.ended) && (this.wagonGuardTimeStops.length >= this.stopIndex) ||
-        (!this.video.ended) && (this.cbmTimeStops.length >= this.stopIndex) ||
-        (!this.video.ended) && (this.automationTimeStops.length >= this.stopIndex)) {
-      this.video.currentTime = this.currentTime;
-      // this.video.currentTime = 22;
-      this.video.play();
-    } else if (this.videoId < 4) {
-      this.stopIndex = 0;
-      const tempId = this.videoId + 1;
-      this.router.navigate(['/video', (tempId)]);
-      this.loadVideoById(tempId);
-    } else {
-      this.router.navigateByUrl('/');
-    }
-  }
-
-  private openFullScreen() {
+  openFullScreen() {
     const elem = document.documentElement as HTMLElement & {
       mozRequestFullScreen(): Promise<void>;
       webkitRequestFullscreen(): Promise<void>;
@@ -156,4 +124,3 @@ export class VideoComponent implements OnInit {
     }
   }
 }
-

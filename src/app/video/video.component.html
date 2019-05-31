@@ -1,16 +1,17 @@
-<div class="menu-container wrapper">
-    <video 
+<div class="wrapper">
+	<video
+		#videoPlayer
+		[src]="videoSource" 
 		class="video"
 		(ended)="onVideoEnded()"
-		(timeupdate)="onTimeUpdate($event)"
 		preload="auto"
-	    autoplay
-	    src="{{ videoSource }}" 
+		autoplay
 		type="video/mp4"
-	    #videoPlayer 
-    >
-    </video>
-    <div class="side-nav-left" (click)="navToPreviousPage()"></div>
+	   
+	> Your browser doesn't support HTML5 video tag.
+	</video>
+    <div class="side-nav-left" (click)="navToPreviousPart(videoPart)"></div>
     <div class="home-button" (click)="navToHome()"></div>
-	<div class="side-nav-right" (click)="navToNextPage()"></div>
+	<div class="side-nav-right" (click)="navToNextPart(videoPart)"></div>
+	<div class="toggle-nav" (click)="toggleVideo($event)"></div>
 </div>

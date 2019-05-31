@@ -1,13 +1,17 @@
+.wrapper {
+	position: relative;
+}
+
 .video {
 	text-align: center;
 	margin: 0 auto;
 	display: block;
 	overflow: hidden;
 	width: 100%;
+	height: auto;
+
 }
-.wrapper {
-	position: relative;
-}
+
 .side-nav-left {
 	position: absolute;
 	left: 0;
@@ -21,11 +25,24 @@
 	right: 0;
 	width: 15%;
 	height: 25%;
+
 }
+
 .side-nav-right {
 	position: absolute;
 	top: 0;
 	right: 0;
 	width: 15%;
 	height: 25%;
+
+}
+
+.toggle-nav {
+	position: absolute;
+	top: 25%;
+	right: 16%;
+	width: 68%;
+	height: 50%;
+	z-index: 1;
+
 }
