@@ -64,54 +64,46 @@ export class VideoComponent implements OnInit {
         this.navToHome();
       }
     }
-    if (this.currentTime >= this.overViewTimeStops[this.overViewsStopIndex]) {
-      this.overViewTimeStops[this.overViewsStopIndex] = this.currentTime;
-      this.video.pause();
-      console.log('overViewTimeStops: ', this.overViewTimeStops);
-    } else if (this.currentTime >= this.wagonGuardTimeStops[this.wagonGuardStopIndex]) {
-      this.wagonGuardTimeStops[this.wagonGuardStopIndex] = this.currentTime;
-      this.video.pause();
-      console.log('wagonGuardTimeStops: ', this.wagonGuardTimeStops);
-    }
   }
 
   onTimeUpdate(value: any): void {
     this.currentTime = value.target.currentTime;
     // console.log(this.currentTime);
-    // switch (this.videoId) {
-    //   case 1: {
-    //     // if (this.currentTime >= this.overViewTimeStops[this.overViewsStopIndex]) {
-    //     //   this.overViewTimeStops[this.overViewsStopIndex] = this.currentTime;
-    //     //   this.video.pause();
-    //     //   console.log('overViewTimeStops: ', this.overViewTimeStops);
-    //     // }
-    //     break;
-    //   }
-    //   case 2: {
-    //     // if (this.currentTime >= this.wagonGuardTimeStops[this.wagonGuardStopIndex]) {
-    //     //   this.wagonGuardTimeStops[this.wagonGuardStopIndex] = this.currentTime;
-    //     //   this.video.pause();
-    //     //   console.log('wagonGuardTimeStops: ', this.wagonGuardTimeStops);
-    //     // }
-    //     break;
-    //   }
-    //   case 3: {
-    //     if (this.currentTime >= this.cbmTimeStops[this.cbmTimeStopIndex]) {
-    //       this.cbmTimeStops[this.cbmTimeStopIndex] = this.currentTime;
-    //       this.video.pause();
-    //       console.log(this.cbmTimeStops);
-    //     }
-    //     break;
-    //   }
-    //   case 4: {
-    //     if (this.currentTime >= this.automationTimeStops[this.automationStopIndex]) {
-    //       this.automationTimeStops[this.automationStopIndex] = this.currentTime;
-    //       this.video.pause();
-    //       console.log(this.automationTimeStops);
-    //     }
-    //     break;
-    //   }
-    // }
+    switch (this.videoId) {
+      case 1: {
+        if (this.currentTime >= this.overViewTimeStops[this.overViewsStopIndex]) {
+          this.overViewTimeStops[this.overViewsStopIndex] = this.currentTime;
+          this.video.pause();
+          console.log('overViewTimeStops: ', this.overViewTimeStops);
+        }
+        break;
+      }
+      case 2: {
+        if (this.currentTime >= this.wagonGuardTimeStops[this.wagonGuardStopIndex]) {
+          this.wagonGuardTimeStops[this.wagonGuardStopIndex] = this.currentTime;
+          this.video.pause();
+          console.log('wagonGuardTimeStops: ', this.wagonGuardTimeStops);
+        }
+        break;
+      }
+      case 3: {
+        if (this.currentTime >= this.cbmTimeStops[this.cbmTimeStopIndex]) {
+          this.cbmTimeStops[this.cbmTimeStopIndex] = this.currentTime;
+          this.video.pause();
+          console.log(this.cbmTimeStops);
+        }
+        break;
+      }
+      case 4: {
+        if (this.currentTime >= this.automationTimeStops[this.automationStopIndex]) {
+          this.automationTimeStops[this.automationStopIndex] = this.currentTime;
+          this.video.pause();
+          console.log(this.automationTimeStops);
+        }
+        break;
+      }
+    }
+    console.log('videoId: ', this.videoId);
   }
 
   onVideoEnded() {
@@ -149,14 +141,13 @@ export class VideoComponent implements OnInit {
     } else if (this.automationStopIndex <= this.automationTimeStops.length) {
       this.video.currentTime = this.automationTimeStops[this.automationStopIndex++];
       console.log('automation: ', currentTime);
+    } else {
+      this.navToHome();
+      this.overViewsStopIndex = 0;
+      this.wagonGuardStopIndex = 0;
+      this.cbmTimeStopIndex = 0;
+      this.automationStopIndex = 0;
     }
-    // } else {
-    //   this.navToHome();
-    //   this.overViewsStopIndex = 0;
-    //   this.wagonGuardStopIndex = 0;
-    //   this.cbmTimeStopIndex = 0;
-    //   this.automationStopIndex = 0;
-    // }
     this.video.currentTime = currentTime;
     console.log(this.video.currentTime);
     this.video.play();
