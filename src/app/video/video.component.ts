@@ -22,7 +22,7 @@ export class VideoComponent implements OnInit {
 
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   constructor(private route: ActivatedRoute,
-              private router: Router) {}
+    private router: Router) { }
 
   ngOnInit() {
     this.video = this.videoplayer.nativeElement;
@@ -38,22 +38,22 @@ export class VideoComponent implements OnInit {
     switch (this.videoId) {
       case 1: {
         this.video.src = './assets/Overview.mp4';
-        // this.openFullScreen();
+        this.openFullScreen();
         break;
       }
       case 2: {
         this.video.src = './assets/Wagon_guard.mp4';
-        // this.openFullScreen();
+        this.openFullScreen();
         break;
       }
       case 3: {
         this.video.src = './assets/CBM.mp4';
-        // this.openFullScreen();
+        this.openFullScreen();
         break;
       }
       case 4: {
         this.video.src = './assets/Automation.mp4';
-        // this.openFullScreen();
+        this.openFullScreen();
         break;
       }
       default: {
@@ -113,41 +113,65 @@ export class VideoComponent implements OnInit {
   toggleVideo(event: any): void {
     if (!this.video.ended) {
       this.video.paused ? this.video.play() : this.video.pause();
+      // this.video.play();
     }
   }
 
   navToPreviousPage(): void {
-    this.loadVideoById();
-    // let currentTime;
-    // // const overViewsStopIndex = this.overViewsStopIndex;
-    // // let wagonGuardStopIndex = this.wagonGuardStopIndex;
+    // this.loadVideoById();
 
+    if (this.videoId === 1) {
+      this.overViewsStopIndex--;
+      if ( this.overViewsStopIndex >= 0) {
+        console.log('overViewsStopIndex:', this.overViewsStopIndex);
+        this.currentTime = this.overViewTimeStops[this.overViewsStopIndex];
+        console.log('overView currentTime: ', this.currentTime);
+        this.video.currentTime = this.currentTime;
+      } else {
+        this.navToHome();
+      }
 
-    // // if (this.videoId === 1 && (this.currentTime >= this.overViewTimeStops[overViewsStopIndex - 1])) {
-    // //   if (!(this.overViewTimeStops[overViewsStopIndex])) {
-    // //     currentTime = this.overViewTimeStops[overViewsStopIndex - 1 - 1];
-    // //     console.log('overView currentTime: ', currentTime);
-    // //     this.video.currentTime = currentTime;
-    // //   } else {
-    // //   this.navToHome();
-    // //   }
-    // // }
-    // this.wagonGuardStopIndex--;
-    // if (this.videoId === 2 && (this.currentTime >= this.wagonGuardTimeStops[this.wagonGuardStopIndex - 1])) {
-    //   console.log('wagonGuardStopIndex:', this.wagonGuardStopIndex);
-    //     currentTime = this.wagonGuardTimeStops[(this.wagonGuardStopIndex)];
-    //     // console.log('wagonGuard currentTime: ', currentTime);
-    //     this.video.currentTime = currentTime;
+    } else if (this.videoId === 2) {
+      this.wagonGuardStopIndex--;
+      if ( this.wagonGuardStopIndex >= 0) {
+        console.log('wagonGuardStopIndex:', this.wagonGuardStopIndex);
+        this.currentTime = this.wagonGuardTimeStops[this.wagonGuardStopIndex];
+        console.log('wagonGuard currentTime: ', this.currentTime);
+        this.video.currentTime = this.currentTime;
+      } else {
+        this.navToHome();
+      }
 
-    // } else {
-    //   this.navToHome();
-      this.overViewsStopIndex = 0;
+    } else if (this.videoId === 3) {
+      this.cbmTimeStopIndex--;
+      if ( this.cbmTimeStopIndex >= 0) {
+        console.log('cbmTimeStopIndex:', this.cbmTimeStopIndex);
+        this.currentTime = this.cbmTimeStops[this.cbmTimeStopIndex];
+        console.log('cbmTimeStops currentTime: ', this.currentTime);
+        this.video.currentTime = this.currentTime;
+      } else {
+        this.navToHome();
+      }
+
+    } else if (this.videoId === 4) {
+      this.automationStopIndex--;
+      if ( this.automationStopIndex >= 0) {
+        console.log('automationStopIndex:', this.automationStopIndex);
+        this.currentTime = this.automationTimeStops[this.automationStopIndex];
+        console.log('automationTimeStops currentTime: ', this.currentTime);
+        this.video.currentTime = this.currentTime;
+      } else {
+        this.navToHome();
+      }
+
+    } else {
       this.wagonGuardStopIndex = 0;
+      this.overViewsStopIndex = 0;
       this.cbmTimeStopIndex = 0;
       this.automationStopIndex = 0;
-    // }
-    // // console.log('this.video.currentTime: ', this.video.currentTime);
-    // this.video.load();
+    }
+    this.video.pause();
+    console.log('this.video.currentTime: ', this.video.currentTime);
   }
 
   navToNextPage(): void {
@@ -192,7 +216,7 @@ export class VideoComponent implements OnInit {
       this.automationStopIndex = 0;
     }
     // console.log(this.video.currentTime);
-    this.video.play();
+    // this.video.play();
   }
 
   private openFullScreen() {
