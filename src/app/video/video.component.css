@@ -29,3 +29,12 @@
 	width: 15%;
 	height: 25%;
 }
+
+.toggle-nav {
+	position: absolute;
+	top: 25%;
+	right: 16%;
+	width: 68%;
+	height: 50%;
+	z-index: 1;
+}

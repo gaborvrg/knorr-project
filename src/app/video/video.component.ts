@@ -16,13 +16,9 @@ export class VideoComponent implements OnInit {
   automationStopIndex = 0;
   video: HTMLVideoElement;
   overViewTimeStops = [2.48, 30.566];
-  wagonGuardTimeStops = [3.033, 9.921, 20.259, 22.744];
+  wagonGuardTimeStops = [3.033, 9.921, 20.259, 23.100];
   cbmTimeStops = [1.15, 6.339, 28.810, 68.543];
   automationTimeStops = [3.067, 27.317, 30.175, 41.608];
-  // overViewTimeStops = [];
-  // wagonGuardTimeStops = [];
-  // cbmTimeStops = [];
-  // automationTimeStops = [];
 
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   constructor(private route: ActivatedRoute,
@@ -74,7 +70,7 @@ export class VideoComponent implements OnInit {
         if (this.currentTime >= this.overViewTimeStops[this.overViewsStopIndex]) {
           this.overViewTimeStops[this.overViewsStopIndex] = this.currentTime;
           this.video.pause();
-          console.log('overViewTimeStops: ', this.overViewTimeStops);
+          // console.log('overViewTimeStops: ', this.overViewTimeStops);
         }
         break;
       }
@@ -82,7 +78,7 @@ export class VideoComponent implements OnInit {
         if (this.currentTime >= this.wagonGuardTimeStops[this.wagonGuardStopIndex]) {
           this.wagonGuardTimeStops[this.wagonGuardStopIndex] = this.currentTime;
           this.video.pause();
-          console.log('wagonGuardTimeStops: ', this.wagonGuardTimeStops);
+          // console.log('wagonGuardTimeStops: ', this.wagonGuardTimeStops);
         }
         break;
       }
@@ -90,7 +86,7 @@ export class VideoComponent implements OnInit {
         if (this.currentTime >= this.cbmTimeStops[this.cbmTimeStopIndex]) {
           this.cbmTimeStops[this.cbmTimeStopIndex] = this.currentTime;
           this.video.pause();
-          console.log(this.cbmTimeStops);
+          // console.log(this.cbmTimeStops);
         }
         break;
       }
@@ -98,12 +94,12 @@ export class VideoComponent implements OnInit {
         if (this.currentTime >= this.automationTimeStops[this.automationStopIndex]) {
           this.automationTimeStops[this.automationStopIndex] = this.currentTime;
           this.video.pause();
-          console.log(this.automationTimeStops);
+          // console.log(this.automationTimeStops);
         }
         break;
       }
     }
-    console.log('videoId: ', this.videoId);
+    // console.log('videoId: ', this.videoId);
   }
 
   onVideoEnded() {
@@ -114,33 +110,80 @@ export class VideoComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
-  // navToPreviousPage(): void {
-  //   console.log(this.stopIndex);
-  //   if (this.stopIndex <= 1 ) {
-  //     this.navToHome();
-  //     this.stopIndex = 0;
-  //   } else {
-  //     this.video.currentTime = this.wagonGuardTimeStops[this.stopIndex - 2];
-  //     console.log(this.video.currentTime);
-  //     this.video.play();
-  //     this.stopIndex--;
-  //   }
-  // }
+  toggleVideo(event: any): void {
+    if (!this.video.ended) {
+      this.video.paused ? this.video.play() : this.video.pause();
+    }
+  }
+
+  navToPreviousPage(): void {
+    this.loadVideoById();
+    // let currentTime;
+    // // const overViewsStopIndex = this.overViewsStopIndex;
+    // // let wagonGuardStopIndex = this.wagonGuardStopIndex;
+
+
+    // // if (this.videoId === 1 && (this.currentTime >= this.overViewTimeStops[overViewsStopIndex - 1])) {
+    // //   if (!(this.overViewTimeStops[overViewsStopIndex])) {
+    // //     currentTime = this.overViewTimeStops[overViewsStopIndex - 1 - 1];
+    // //     console.log('overView currentTime: ', currentTime);
+    // //     this.video.currentTime = currentTime;
+    // //   } else {
+    // //   this.navToHome();
+    // //   }
+    // // }
+    // this.wagonGuardStopIndex--;
+    // if (this.videoId === 2 && (this.currentTime >= this.wagonGuardTimeStops[this.wagonGuardStopIndex - 1])) {
+    //   console.log('wagonGuardStopIndex:', this.wagonGuardStopIndex);
+    //     currentTime = this.wagonGuardTimeStops[(this.wagonGuardStopIndex)];
+    //     // console.log('wagonGuard currentTime: ', currentTime);
+    //     this.video.currentTime = currentTime;
+
+    // } else {
+    //   this.navToHome();
+      this.overViewsStopIndex = 0;
+      this.wagonGuardStopIndex = 0;
+      this.cbmTimeStopIndex = 0;
+      this.automationStopIndex = 0;
+    // }
+    // // console.log('this.video.currentTime: ', this.video.currentTime);
+    // this.video.load();
+  }
 
   navToNextPage(): void {
     let currentTime;
-    if (this.overViewsStopIndex <= this.overViewTimeStops.length) {
-      currentTime = this.overViewTimeStops[this.overViewsStopIndex++];
-      console.log('overView: ', currentTime);
-    } else if (this.wagonGuardStopIndex <= this.wagonGuardTimeStops.length) {
-      currentTime = this.wagonGuardTimeStops[this.wagonGuardStopIndex++];
-      console.log('wagonGuard: ', currentTime);
-    } else if (this.cbmTimeStopIndex <= this.cbmTimeStops.length) {
-      this.video.currentTime = this.cbmTimeStops[this.cbmTimeStopIndex++];
-      console.log('CBM: ', currentTime);
-    } else if (this.automationStopIndex <= this.automationTimeStops.length) {
-      this.video.currentTime = this.automationTimeStops[this.automationStopIndex++];
-      console.log('automation: ', currentTime);
+    if (this.videoId === 1 && (this.overViewsStopIndex <= this.overViewTimeStops.length)) {
+      if (!(this.overViewsStopIndex >= this.overViewTimeStops.length)) {
+        currentTime = this.overViewTimeStops[this.overViewsStopIndex++];
+        // console.log('overView: ', currentTime);
+        this.video.currentTime = currentTime;
+      } else {
+        this.navToHome();
+      }
+    } else if (this.videoId === 2 && (this.wagonGuardStopIndex <= this.wagonGuardTimeStops.length)) {
+      if (!(this.wagonGuardStopIndex >= this.wagonGuardTimeStops.length)) {
+        currentTime = this.wagonGuardTimeStops[this.wagonGuardStopIndex++];
+        // console.log('wagonGuard: ', currentTime);
+        this.video.currentTime = currentTime;
+      } else {
+        this.navToHome();
+      }
+    } else if (this.videoId === 3 && (this.cbmTimeStopIndex <= this.cbmTimeStops.length)) {
+      if (!(this.cbmTimeStopIndex >= this.cbmTimeStops.length)) {
+        currentTime = this.cbmTimeStops[this.cbmTimeStopIndex++];
+        // console.log('CBM: ', currentTime);
+        this.video.currentTime = currentTime;
+      } else {
+        this.navToHome();
+      }
+    } else if (this.videoId === 4 && (this.automationStopIndex < this.automationTimeStops.length)) {
+      if (!(this.automationStopIndex >= this.automationTimeStops.length)) {
+        currentTime = this.automationTimeStops[this.automationStopIndex++];
+        // console.log('automation: ', currentTime);
+        this.video.currentTime = currentTime;
+      } else {
+        this.navToHome();
+      }
     } else {
       this.navToHome();
       this.overViewsStopIndex = 0;
@@ -148,8 +191,7 @@ export class VideoComponent implements OnInit {
       this.cbmTimeStopIndex = 0;
       this.automationStopIndex = 0;
     }
-    this.video.currentTime = currentTime;
-    console.log(this.video.currentTime);
+    // console.log(this.video.currentTime);
     this.video.play();
   }
 
